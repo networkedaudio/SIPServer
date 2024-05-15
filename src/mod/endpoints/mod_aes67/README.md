@@ -40,13 +40,15 @@ installs the below necessary tools with [Chocolatey](https://chocolatey.org/)
 
     ```
     # Set custom remote and branch for all gstreamer recipes
-    recipes_remotes = {'gst-plugins-rs': {'rs-remote': 'https://gitlab.freedesktop.org/tkanakamalla/gst-plugins-rs.git'}, 'gstreamer-1.0': {'gst-remote': 'https://gitlab.freedesktop.org/tkanakamalla/gstreamer.git'}}
+    recipes_remotes = {'gst-plugins-rs': {'rs-remote': 'git@github.com:networkedaudio/gst-plugins-rs.git'}, 'gstreamer-1.0': {'gst-remote': 'git@github.com:networkedaudio/GStreamer.git'}}
     recipes_commits = {'gst-plugins-rs': 'rs-remote/cerbero-custom-rs-1.24.3', 'gstreamer-1.0': 'gst-remote/cerbero-custom'}
 
     # Use VS2019
     vs_install_version = 'vs16'
     ```
-
+    Note:
+    If the repo url scheme is SSH (like in the above example) and not HTTPS it needs to verification and authentication while fetching the code. So create an ssh private key for the build machine and add that to your [GitHub account](https://docs.github.com/en/enterprise-cloud@latest/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+    Since the cerbero build runs in msys2 shell the SSH keys present in the default user path in Windows will not be picked. So add the `known_hosts` file and public/private key files to the msys2 home directory for e.g. C:\msys2\home\<username>\.ssh
 
 8. Run the cerbero bootstrap. It will install all the missing parts of the build system and necessary toolchains
 
@@ -56,4 +58,4 @@ installs the below necessary tools with [Chocolatey](https://chocolatey.org/)
 
     `$ ./cerbero-uninstalled -c localconf.cbc -c config/win64.cbc -v visualstudio package gstreamer-1.0`
 
-10. If the build is successful, we should have the two installer (.msi) files created in the cerbero directory. Run them to install GStreamer
+10. If the build is successful, we should have the two installer (.msi) files created in the cerbero directory. Run them both to install GStreamer
