@@ -1742,8 +1742,14 @@ SWITCH_MODULE_LOAD_FUNCTION (mod_aes67_load)
 	if (realpath(media_dir, media_dir) !=  NULL) {
 #endif
 		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Resolved the abolute path to Media (GStreamer) path as %s\n", media_dir);
-    switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Setting it as environment variable: GST_PLUGIN_PATH\n");
+    struct stat st_buf;
+    int ret = -1;
+    if (((ret = stat(media_dir, &st_buf)) == 0) && (st_buf.st_mode & S_IFDIR) ) {
+      switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Setting it as environment variable: GST_PLUGIN_PATH\n");
     switch_setenv("GST_PLUGIN_PATH", media_dir, TRUE);
+    } else {
+      switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Can't access %s, error: %s. Not overriding GST_PLUGIN_PATH\n", media_dir, strerror(errno));
+    }
 	} else {
 		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_ERROR, "Failed to resolve the Media (GStreamer) path"
 #ifdef _WIN32
