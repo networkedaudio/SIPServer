@@ -893,19 +893,22 @@ channel_on_hangup (switch_core_session_t * session)
 
     switch_snprintf(session_id, SESSION_ID_LEN, "%llu", switch_core_session_get_id(tech_pvt->session));
 
-    STREAM_READER_LOCK(endpoint->in_stream);
+    if (endpoint->in_stream) {
+      STREAM_READER_LOCK(endpoint->in_stream);
 
-    if (remove_appsink(endpoint->in_stream->stream,
+      if (remove_appsink(endpoint->in_stream->stream,
         endpoint->inchan, session_id)) {
         endpoint->active_listen_sessions--;
+      }
+
+      STREAM_READER_UNLOCK(endpoint->in_stream);
     }
 
-    STREAM_READER_UNLOCK(endpoint->in_stream);
-
-    if (endpoint->active_listen_sessions == 0) {
-        switch_log_printf(SWITCH_CHANNEL_SESSION_LOG(session), SWITCH_LOG_INFO, "releasing inchan \n");
-        release_stream_channel(endpoint->in_stream, endpoint->inchan, 1);
+    if (endpoint->active_listen_sessions == 0 && endpoint->in_stream) {
+      switch_log_printf(SWITCH_CHANNEL_SESSION_LOG(session), SWITCH_LOG_INFO, "releasing inchan \n");
+      release_stream_channel(endpoint->in_stream, endpoint->inchan, 1);
     }
+
     release_stream_channel(endpoint->out_stream, endpoint->outchan, 0);
     switch_core_timer_destroy(&tech_pvt->read_timer);
     switch_core_timer_destroy(&tech_pvt->write_timer);
@@ -1746,7 +1749,7 @@ SWITCH_MODULE_LOAD_FUNCTION (mod_aes67_load)
     int ret = -1;
     if (((ret = stat(media_dir, &st_buf)) == 0) && (st_buf.st_mode & S_IFDIR) ) {
       switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Setting it as environment variable: GST_PLUGIN_PATH\n");
-    switch_setenv("GST_PLUGIN_PATH", media_dir, TRUE);
+      switch_setenv("GST_PLUGIN_PATH", media_dir, TRUE);
     } else {
       switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Can't access %s, error: %s. Not overriding GST_PLUGIN_PATH\n", media_dir, strerror(errno));
     }
