@@ -1856,6 +1856,7 @@ SWITCH_MODULE_LOAD_FUNCTION (mod_aes67_load)
   switch_console_set_complete("add aes67 rtpstats");
   switch_console_set_complete("add aes67 txflow");
   switch_console_set_complete("add aes67 reloadconf");
+  switch_console_set_complete("add aes67 dump");
 
   /* indicate that the module should continue to be loaded */
   return SWITCH_STATUS_SUCCESS;
@@ -3273,6 +3274,7 @@ SWITCH_STANDARD_API(aes_cmd)
   "aes67 rtpstats <stream>\n"
   "aes67 txflow <stream> <on|off>\n"
   "aes67 reloadconf\n"
+  "aes67 dump <stream> <dotfile name>\n"
   "--------------------------------------------------------------------------------\n";
   if (zstr(cmd)) {
     stream->write_function(stream, "%s", usage_string);
@@ -3391,6 +3393,26 @@ SWITCH_STANDARD_API(aes_cmd)
     }
   } else if (!strcasecmp(argv[0], "reloadconf")) {
     reload_config();
+  } else if (!strcasecmp(argv[0], "dump")) {
+    shared_audio_stream_t *astream;
+
+    if (!argv[1]) {
+      stream->write_function(stream, "Please provide the name of the stream\n");
+      stream->write_function(stream, "%s", usage_string);
+      goto done;
+    }
+
+    astream = switch_core_hash_find_locked (globals.sh_streams, argv[1], globals.sh_shtreams_lock);
+    if (!astream) {
+      stream->write_function(stream, "Stream with name %s not found\n", argv[1]);
+      stream->write_function(stream, "%s", usage_string);
+      goto done;
+    }
+
+    if (argv[2])
+      dump_pipeline(astream->stream->pipeline, argv[2]);
+    else
+      dump_pipeline(astream->stream->pipeline, "clidump");
   }
 
   done:

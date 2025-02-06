@@ -53,7 +53,7 @@ channel_remap_t channel_remaps[] = {
   },
 };
 
-static void
+void
 dump_pipeline (GstPipeline *pipe, const char *name)
 {
   char *tmp = g_strdup_printf("%s-%s", gst_element_get_name(pipe), name);
