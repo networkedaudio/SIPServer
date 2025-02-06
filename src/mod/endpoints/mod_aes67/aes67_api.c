@@ -873,7 +873,7 @@ void
 use_ptp_clock(g_stream_t *stream, GstClock *ptp_clock)
 {
   g_atomic_int_set(&stream->clock_sync, 0);
-  gst_element_set_state(GST_ELEMENT (stream->pipeline), GST_STATE_PAUSED);
+  gst_element_set_state(GST_ELEMENT (stream->pipeline), GST_STATE_READY);
 
   /* cb_rx_stats_id will be non zero only when
   Rx is operational and pipeline clock is not ptp*/
