@@ -2073,9 +2073,12 @@ void clock_synced_cb(GstClock *ptp_clock, gboolean synced, void* data)
   if (!synced)
     return;
 
-  if (globals.clock) {
-    gst_object_unref(globals.clock);
-    globals.clock = gst_object_ref(ptp_clock);
+  if (globals.clock != ptp_clock) {
+    if (globals.clock)
+      gst_object_unref(globals.clock);
+
+    // No ref needed, we are taking over the reference from init_ptp()
+    globals.clock = ptp_clock;
   }
   globals.synthetic_ptp = 0;
 
