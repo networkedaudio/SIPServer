@@ -1684,9 +1684,8 @@ gst_logger (GstDebugCategory * category, GstDebugLevel level,
 		  fs_log_level = SWITCH_LOG_INFO;
 		  break;
 		case GST_LEVEL_DEBUG:
-		  fs_log_level = SWITCH_LOG_DEBUG;
 		default:
-		  fs_log_level = SWITCH_LOG_INFO;
+		  fs_log_level = SWITCH_LOG_DEBUG;
 		  break;
 	}
 
