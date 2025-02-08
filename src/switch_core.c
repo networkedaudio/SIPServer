@@ -2485,7 +2485,14 @@ static void switch_update_media_env_path () {
 	switch_snprintf(variable,MAX_VAR_LEN, "LD_LIBRARY_PATH");
 	if (realpath(media_bin_dir, media_bin_dir) !=  NULL) {
 #endif
-		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Resolved the abolute path to Media (GStreamer) path as %s\n", media_bin_dir);
+    	struct stat st_buf;
+    	int ret = -1;
+    	if (((ret = stat(media_bin_dir, &st_buf)) == 0) && (st_buf.st_mode & S_IFDIR) ) {
+    		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Resolved the abolute path to Media (GStreamer) path as %s\n", media_bin_dir);
+    	} else {
+    		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_ERROR, "Can't access %s, error: %s. Not setting it in the %s\n", media_bin_dir, strerror(errno), variable);
+    		return;
+    	}
 	} else {
 		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_ERROR, "Failed to resolve the Media (GStreamer) path"
 #ifdef WIN32

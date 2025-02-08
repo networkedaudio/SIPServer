@@ -893,19 +893,22 @@ channel_on_hangup (switch_core_session_t * session)
 
     switch_snprintf(session_id, SESSION_ID_LEN, "%llu", switch_core_session_get_id(tech_pvt->session));
 
-    STREAM_READER_LOCK(endpoint->in_stream);
+    if (endpoint->in_stream) {
+      STREAM_READER_LOCK(endpoint->in_stream);
 
-    if (remove_appsink(endpoint->in_stream->stream,
+      if (remove_appsink(endpoint->in_stream->stream,
         endpoint->inchan, session_id)) {
         endpoint->active_listen_sessions--;
+      }
+
+      STREAM_READER_UNLOCK(endpoint->in_stream);
     }
 
-    STREAM_READER_UNLOCK(endpoint->in_stream);
-
-    if (endpoint->active_listen_sessions == 0) {
-        switch_log_printf(SWITCH_CHANNEL_SESSION_LOG(session), SWITCH_LOG_INFO, "releasing inchan \n");
-        release_stream_channel(endpoint->in_stream, endpoint->inchan, 1);
+    if (endpoint->active_listen_sessions == 0 && endpoint->in_stream) {
+      switch_log_printf(SWITCH_CHANNEL_SESSION_LOG(session), SWITCH_LOG_INFO, "releasing inchan \n");
+      release_stream_channel(endpoint->in_stream, endpoint->inchan, 1);
     }
+
     release_stream_channel(endpoint->out_stream, endpoint->outchan, 0);
     switch_core_timer_destroy(&tech_pvt->read_timer);
     switch_core_timer_destroy(&tech_pvt->write_timer);
@@ -1681,9 +1684,8 @@ gst_logger (GstDebugCategory * category, GstDebugLevel level,
 		  fs_log_level = SWITCH_LOG_INFO;
 		  break;
 		case GST_LEVEL_DEBUG:
-		  fs_log_level = SWITCH_LOG_DEBUG;
 		default:
-		  fs_log_level = SWITCH_LOG_INFO;
+		  fs_log_level = SWITCH_LOG_DEBUG;
 		  break;
 	}
 
@@ -1742,8 +1744,14 @@ SWITCH_MODULE_LOAD_FUNCTION (mod_aes67_load)
 	if (realpath(media_dir, media_dir) !=  NULL) {
 #endif
 		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Resolved the abolute path to Media (GStreamer) path as %s\n", media_dir);
-    switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Setting it as environment variable: GST_PLUGIN_PATH\n");
-    switch_setenv("GST_PLUGIN_PATH", media_dir, TRUE);
+    struct stat st_buf;
+    int ret = -1;
+    if (((ret = stat(media_dir, &st_buf)) == 0) && (st_buf.st_mode & S_IFDIR) ) {
+      switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Setting it as environment variable: GST_PLUGIN_PATH\n");
+      switch_setenv("GST_PLUGIN_PATH", media_dir, TRUE);
+    } else {
+      switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Can't access %s, error: %s. Not overriding GST_PLUGIN_PATH\n", media_dir, strerror(errno));
+    }
 	} else {
 		switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_ERROR, "Failed to resolve the Media (GStreamer) path"
 #ifdef _WIN32
@@ -1847,6 +1855,7 @@ SWITCH_MODULE_LOAD_FUNCTION (mod_aes67_load)
   switch_console_set_complete("add aes67 rtpstats");
   switch_console_set_complete("add aes67 txflow");
   switch_console_set_complete("add aes67 reloadconf");
+  switch_console_set_complete("add aes67 dump");
 
   /* indicate that the module should continue to be loaded */
   return SWITCH_STATUS_SUCCESS;
@@ -2063,9 +2072,12 @@ void clock_synced_cb(GstClock *ptp_clock, gboolean synced, void* data)
   if (!synced)
     return;
 
-  if (globals.clock) {
-    gst_object_unref(globals.clock);
-    globals.clock = gst_object_ref(ptp_clock);
+  if (globals.clock != ptp_clock) {
+    if (globals.clock)
+      gst_object_unref(globals.clock);
+
+    // No ref needed, we are taking over the reference from init_ptp()
+    globals.clock = ptp_clock;
   }
   globals.synthetic_ptp = 0;
 
@@ -3264,6 +3276,7 @@ SWITCH_STANDARD_API(aes_cmd)
   "aes67 rtpstats <stream>\n"
   "aes67 txflow <stream> <on|off>\n"
   "aes67 reloadconf\n"
+  "aes67 dump <stream> <dotfile name>\n"
   "--------------------------------------------------------------------------------\n";
   if (zstr(cmd)) {
     stream->write_function(stream, "%s", usage_string);
@@ -3382,6 +3395,26 @@ SWITCH_STANDARD_API(aes_cmd)
     }
   } else if (!strcasecmp(argv[0], "reloadconf")) {
     reload_config();
+  } else if (!strcasecmp(argv[0], "dump")) {
+    shared_audio_stream_t *astream;
+
+    if (!argv[1]) {
+      stream->write_function(stream, "Please provide the name of the stream\n");
+      stream->write_function(stream, "%s", usage_string);
+      goto done;
+    }
+
+    astream = switch_core_hash_find_locked (globals.sh_streams, argv[1], globals.sh_shtreams_lock);
+    if (!astream) {
+      stream->write_function(stream, "Stream with name %s not found\n", argv[1]);
+      stream->write_function(stream, "%s", usage_string);
+      goto done;
+    }
+
+    if (argv[2])
+      dump_pipeline(astream->stream->pipeline, argv[2]);
+    else
+      dump_pipeline(astream->stream->pipeline, "clidump");
   }
 
   done:
