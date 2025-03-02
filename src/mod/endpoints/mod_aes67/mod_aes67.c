@@ -648,7 +648,7 @@ destroy_actual_stream (audio_stream_t * stream)
   }
 
   stop_pipeline (stream->stream);
-  stream->stream = NULL;
+  stream->stream = NULL; // do we need to de-allocate stream->stream here?
 
   if (stream->write_timer.timer_interface) {
     switch_core_timer_destroy (&stream->write_timer);
@@ -1888,6 +1888,7 @@ emit_ptp_gm_change (gboolean synced)
 			globals.ptp_gm_mac_addr);
 
     switch_event_fire(&event);
+	switch_event_destroy(&event); // Add this line (mem leak?)
   }
 }
 
@@ -2074,7 +2075,7 @@ void clock_synced_cb(GstClock *ptp_clock, gboolean synced, void* data)
 
   if (globals.clock != ptp_clock) {
     if (globals.clock)
-      gst_object_unref(globals.clock);
+      gst_object_unref(GST_OBJECT(globals.clock));
 
     // No ref needed, we are taking over the reference from init_ptp()
     globals.clock = ptp_clock;
@@ -2114,7 +2115,7 @@ init_ptp (int domain, char *iface)
   }
 
   switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Creating ptp clock client\n");
-  clock = gst_ptp_clock_new ("ptp-clock", domain);
+  clock = gst_ptp_clock_new ("ptp-clock", domain);  //mem leak??
   if (!gst_clock_wait_for_sync (GST_CLOCK (clock), timeout)) {
     switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_ERROR, "Timed out waiting for the clock to sync\n");
     g_signal_connect(G_OBJECT(clock), "synced", G_CALLBACK(clock_synced_cb), NULL);
@@ -2751,8 +2752,8 @@ load_config (void)
       globals.synthetic_ptp = 1;
     } else {
       /* using PTP clock, clean up the default GST_CLOCK_TYPE_REALTIME clock */
-      gst_object_unref (globals.clock);
-      globals.clock = ptp_clock;
+      if (globals.clock!=NULL) gst_object_unref (GST_OBJECT(globals.clock));
+      globals.clock = ptp_clock;            //check mem leak or crazy deallocation of ptp_clock being pointed to here
     }
   }
 
@@ -2824,7 +2825,7 @@ SWITCH_MODULE_SHUTDOWN_FUNCTION (mod_aes67_shutdown)
   gst_ptp_deinit ();
 
   if (globals.clock)
-    gst_object_unref (globals.clock);
+    gst_object_unref (GST_OBJECT(globals.clock));
 
   switch_core_hash_destroy (&globals.call_hash);
   switch_core_hash_destroy (&globals.sh_streams);
@@ -3048,6 +3049,7 @@ create_shared_audio_stream (shared_audio_stream_t * shstream)
       switch_event_add_header_string (event, SWITCH_STACK_BOTTOM, "Reason",
           "Failed to create gstreamer pipeline");
       switch_event_fire (&event);
+	  switch_event_destroy(&event); // Memleak fix
     }
     return -1;
   }
