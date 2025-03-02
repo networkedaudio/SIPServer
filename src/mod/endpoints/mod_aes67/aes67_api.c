@@ -956,7 +956,6 @@ bksnd_exit:
 error:
     if (pipeline !=NULL) gst_object_unref(GST_OBJECT(pipeline));
 	if (rtp_pay != NULL) gst_object_unref(GST_OBJECT(rtp_pay));
-    //if (stream != NULL) g_free (stream);
 	if (stream != NULL) {
 		if (stream->clock != NULL) {
 			gst_object_unref(stream->clock); // Fix: Added missing unref
@@ -1032,8 +1031,8 @@ stop_pipeline (g_stream_t * stream)
 	gst_object_unref (GST_OBJECT(stream->clock));
   teardown_mainloop (stream->mainloop);
   g_thread_join (stream->thread);
-  //g_free (stream);
-  if (stream != NULL) gst_object_unref(GST_OBJECT(stream)); 
+
+  if (stream != NULL) g_free(stream); 
   switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_DEBUG,
       "Pipeline and mainloop cleaned up\n");
 
