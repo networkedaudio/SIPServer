@@ -139,7 +139,7 @@ request_pt_map(GstElement *jitterbuffer, guint pt, gpointer user_data)
 static void
 destroy_caps(void *data, GClosure G_GNUC_UNUSED *closure)
 {
-  if (data !=NULL) gst_caps_unref(GST_OBJECT(data));
+  if (data !=NULL) gst_caps_unref(GST_CAPS(data));
 }
 #endif
 
@@ -331,8 +331,8 @@ error:
 	if (NULL != tee) gst_object_unref(GST_OBJECT(tee));
 
 exit:
-	if (NULL != tee_src_pad) gst_object_unref(GST_OBJECT(tee_src_pad));
-	if (NULL != queue_sink_pad) gst_object_unref(GST_OBJECT(queue_sink_pad));
+	if (NULL != tee_src_pad) gst_object_unref(tee_src_pad);
+	if (NULL != queue_sink_pad) gst_object_unref(queue_sink_pad);
 
     return ret;
   }
@@ -897,13 +897,13 @@ ddirTX_error:
 	goto bksnd_exit;
 
 bksnd_error:
-    if (udpsrc !=NULL) gst_caps_unref(GST_OBJECT(udpsrc));
-	if (fakesink != NULL) gst_caps_unref(GST_OBJECT(fakesink));
-	if (caps!=NULL) gst_caps_unref(GST_OBJECT(caps));
+    if (udpsrc !=NULL) gst_object_unref(udpsrc);
+	if (fakesink != NULL) gst_object_unref(fakesink);
+	if (caps!=NULL) gst_caps_unref(caps);
 	goto error;
 
 bksnd_exit:
-	gst_caps_unref(GST_OBJECT(caps));
+	gst_caps_unref(caps);
   }
 
 
@@ -1112,7 +1112,7 @@ push_buffer (g_stream_t *stream, unsigned char *payload, guint len,
   g_signal_emit_by_name (appsrc, "push-buffer", buf, &result);
   // switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "Pushed buffer\n");
 
-  gst_buffer_unref(GST_OBJECT(buf));
+  gst_buffer_unref(buf);
   buf = NULL;
   if (result == GST_FLOW_ERROR) {
     switch_log_printf (SWITCH_CHANNEL_LOG, SWITCH_LOG_ERROR,
@@ -1125,7 +1125,7 @@ done:
 
 error:
   gst_object_unref (GST_OBJECT (appsrc));
-  if (buf!=NULL) gst_object_unref(GST_OBJECT(buf));
+  if (buf!=NULL) gst_buffer_unref(buf);
   return ret;
 }
 
@@ -1232,8 +1232,8 @@ pull_buffers (g_stream_t * stream, unsigned char *payload, guint needed_bytes,
 
 out:
   if (appsink !=NULL) gst_object_unref(GST_OBJECT(appsink));
-  if (buf!=NULL) gst_object_unref(GST_OBJECT(buf));
-  if (sample != NULL) gst_object_unref(GST_OBJECT(sample));
+  if (buf!=NULL) gst_buffer_unref(buf);
+  if (sample != NULL) gst_sample_unref(sample);
   return total_bytes;
 }
 
