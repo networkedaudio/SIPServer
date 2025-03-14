@@ -1125,7 +1125,7 @@ done:
 
 error:
   gst_object_unref (GST_OBJECT (appsrc));
-	if (buf != NULL) gst_object_unref(GST_OBJECT(buf));
+  if (buf!=NULL) gst_buffer_unref(buf);
   return ret;
 }
 
