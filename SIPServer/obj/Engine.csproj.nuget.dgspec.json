@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPServer\\Engine.csproj": {}
+    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPServer\\Engine.csproj": {}
   },
   "projects": {
-    "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPServer\\Engine.csproj": {
+    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPServer\\Engine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPServer\\Engine.csproj",
+        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPServer\\Engine.csproj",
         "projectName": "Engine",
-        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPServer\\Engine.csproj",
+        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPServer\\Engine.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPServer\\obj\\",
+        "outputPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,11 +32,11 @@
           "net8.0-windows10.0.22621": {
             "targetAlias": "net8.0-windows10.0.22621.0",
             "projectReferences": {
-              "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
-                "projectPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj"
+              "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
+                "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj"
               },
-              "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj": {
-                "projectPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj"
+              "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj": {
+                "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj"
               }
             }
           }
@@ -118,11 +118,11 @@
         }
       }
     },
-    "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
+    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
+        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
         "projectName": "FreeSWITCH.Managed.2017",
-        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
+        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
         "frameworks": {
           "net48": {
             "projectReferences": {}
@@ -133,16 +133,16 @@
         "net48": {}
       }
     },
-    "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj": {
+    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj": {
       "restore": {
-        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj",
+        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj",
         "projectName": "mod_managed",
-        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj",
+        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\mod_managed.2017.vcxproj",
         "frameworks": {
           "native": {
             "projectReferences": {
-              "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
-                "projectPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj"
+              "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
+                "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj"
               }
             }
           }

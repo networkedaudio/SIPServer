@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj": {}
+    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj": {}
   },
   "projects": {
-    "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj": {
+    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj",
+        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj",
         "projectName": "SIPWebServer",
-        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj",
+        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Development\\GitHub\\GERRAudio\\networked-audio-SIPServer\\SIPWebServer\\obj\\",
+        "outputPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
