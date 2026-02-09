@@ -107,7 +107,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>C:\freeswitch\libs\portaudio\src\os\win;$(IncludePath)</IncludePath>
+    <IncludePath>C:\gstreamer\1.0\msvc_x86_64\lib\glib-2.0\include\;C:\gstreamer\1.0\msvc_x86_64\include\glib-2.0\;C:\gstreamer\1.0\msvc_x86_64\include\;C:\gstreamer\1.0\msvc_x86_64\include\gstreamer-1.0;C:\gstreamer\1.0\msvc_x86_64\include\gstreamer-1.0\gst\app;C:\gstreamer\1.0\msvc_x86_64\include\gstreamer-1.0\gst\net;C:\gstreamer\1.0\msvc_x86_64\include\gstreamer-1.0\gst;C:\freeswitch\libs\portaudio\src\os\win;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\gstreamer\1.0\msvc_x86_64\include\gstreamer-1.0\gst;C:\freeswitch\libs\portaudio\src\os\win;C:\gstreamer\1.0\msvc_x86_64\include\gstreamer-1.0\gst\app;C:\gstreamer\1.0\msvc_x86_64\include\gstreamer-1.0\gst\net;$(ReferencePath)</ReferencePath>
+    <SourcePath>C:\freeswitch\libs\portaudio\src\os\win;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -180,20 +182,22 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>ksuser.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\libs\portaudio\winvc\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\libs\portaudio\winvc\Lib;%(AdditionalLibraryDirectories);C:\gstreamer\1.0\msvc_x86_64\lib</AdditionalLibraryDirectories>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aes67_api.c" />
     <ClCompile Include="mod_aes67.c" />
+    <ClCompile Include="trim_mem.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aes67_alloc.h" />
     <ClInclude Include="aes67_api.h" />
+    <ClInclude Include="aes67_counters.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\libs\win32\apr\libapr.2017.vcxproj">
@@ -204,6 +208,15 @@
       <Project>{202d7a4e-760d-4d0e-afa1-d7459ced30ff}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Release\mod_aes67.vcxproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+    <None Include="Makefile.am" />
+    <None Include="README.md" />
+    <None Include="x64\Release\mod_aes67.dll.recipe" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

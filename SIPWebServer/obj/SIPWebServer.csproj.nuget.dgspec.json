@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj": {}
+    "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\SIPWebServer\\SIPWebServer.csproj": {}
   },
   "projects": {
-    "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj": {
+    "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\SIPWebServer\\SIPWebServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj",
+        "projectUniqueName": "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\SIPWebServer\\SIPWebServer.csproj",
         "projectName": "SIPWebServer",
-        "projectPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\SIPWebServer.csproj",
+        "projectPath": "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\SIPWebServer\\SIPWebServer.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Development\\GitHub\\GERRAudio\\DO-NOT-RELEASE-networked-audio-SIPServer\\SIPWebServer\\obj\\",
+        "outputPath": "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\SIPWebServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Development\\GitHub\\SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
-                "projectPath": "C:\\Development\\GitHub\\SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj"
+              "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
+                "projectPath": "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj"
               }
             }
           }
@@ -119,11 +119,11 @@
         }
       }
     },
-    "C:\\Development\\GitHub\\SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
+    "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Development\\GitHub\\SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
+        "projectUniqueName": "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
         "projectName": "FreeSWITCH.Managed.2017",
-        "projectPath": "C:\\Development\\GitHub\\SIPServer\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
+        "projectPath": "C:\\Development\\GitHub\\networkedaudio\\SIPServer-update-fork\\src\\mod\\languages\\mod_managed\\managed\\FreeSWITCH.Managed.2017.csproj",
         "frameworks": {
           "net48": {
             "projectReferences": {}
